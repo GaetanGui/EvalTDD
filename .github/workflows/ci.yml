@@ -29,4 +29,4 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           export PYTHONPATH=$PYTHONPATH:$PWD/src
-          pytest tests --cov=src
+          pytest --cov=src --cov-report=html

@@ -1,6 +1,4 @@
 import json
-import io
-import builtins
 from unittest.mock import mock_open, patch
 import pytest
 from src.cart import Cart, InvalidPriceError
@@ -40,11 +38,8 @@ def test_save_to_file(mock_makedirs, mock_file):
     cart = Cart()
     cart.add_product("Livre", 10)
     cart.save_to_file("test/panier.json")
-
-    # Vérifie que le fichier principal est bien ouvert pour écriture
     mock_file.assert_called_once_with("test/panier.json", "w", encoding="utf-8")
 
-    # Vérifie que le contenu écrit est un JSON valide
     handle = mock_file()
     written_data = "".join(call.args[0] for call in handle.write.call_args_list)
     data = json.loads(written_data)
@@ -54,8 +49,11 @@ def test_save_to_file(mock_makedirs, mock_file):
     assert "timestamp" in data
 
 
-
-@patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"products": [{"name": "Livre", "price": 10}]}))
+@patch(
+    "builtins.open",
+    new_callable=mock_open,
+    read_data=json.dumps({"products": [{"name": "Livre", "price": 10}]}),
+)
 def test_load_from_file(mock_file):
     cart = Cart()
     cart.load_from_file("test/panier.json")

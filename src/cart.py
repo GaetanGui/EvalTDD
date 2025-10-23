@@ -4,8 +4,8 @@ from datetime import datetime
 
 
 class InvalidPriceError(Exception):
-    """Erreur levée lorsqu’un prix négatif est ajouté."""
     pass
+
 
 class Cart:
     def __init__(self):
@@ -28,12 +28,7 @@ class Cart:
             p["price"] = round(p["price"] * discount_factor, 2)
 
     def save_to_file(self, filename):
-        """Sauvegarde le panier dans un fichier JSON et crée une archive si on n'est pas en test."""
-        data = {
-            "products": self.products,
-            "timestamp": datetime.now().isoformat()
-        }
-
+        data = {"products": self.products, "timestamp": datetime.now().isoformat()}
         self._write_json(filename, data)
 
         if "PYTEST_CURRENT_TEST" not in os.environ:
@@ -51,14 +46,11 @@ class Cart:
         os.makedirs(archive_dir, exist_ok=True)
 
         archive_filename = os.path.join(
-            archive_dir,
-            f"cart_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            archive_dir, f"cart_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         )
-
         with open(archive_filename, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
 
-    
     def load_from_file(self, filepath):
         with open(filepath, "r", encoding="utf-8") as f:
             data = json.load(f)

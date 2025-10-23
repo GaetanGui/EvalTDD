@@ -29,7 +29,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           export PYTHONPATH=$PYTHONPATH:$PWD/src
-          pytest --cov=src --cov-report=html
+          pytest --cov=src --cov-report=xml
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4

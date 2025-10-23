@@ -1,4 +1,3 @@
-# tests/test_cart.py
 import json
 import io
 import builtins

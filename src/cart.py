@@ -1,4 +1,3 @@
-# src/cart.py
 import json
 import os
 from datetime import datetime
@@ -7,12 +6,6 @@ from datetime import datetime
 class InvalidPriceError(Exception):
     """Erreur levée lorsqu’un prix négatif est ajouté."""
     pass
-
-
-import os
-import json
-from datetime import datetime
-
 
 class Cart:
     def __init__(self):
@@ -70,42 +63,3 @@ class Cart:
         with open(filepath, "r", encoding="utf-8") as f:
             data = json.load(f)
         self.products = data.get("products", [])
-
-# class Cart:
-#     def __init__(self):
-#         self.products = []
-
-#     def add_product(self, name, price):
-#         if price < 0:
-#             raise InvalidPriceError("Le prix ne peut pas être négatif.")
-#         self.products.append({"name": name, "price": price})
-
-#     def remove_product(self, name):
-#         self.products = [p for p in self.products if p["name"] != name]
-
-#     def get_total(self):
-#         return sum(p["price"] for p in self.products)
-
-#     def apply_discount(self, percentage):
-#         discount_factor = (100 - percentage) / 100
-#         for p in self.products:
-#             p["price"] = round(p["price"] * discount_factor, 2)
-
-#     def save_to_file(self, filepath):
-#         data = {"products": self.products, "timestamp": datetime.now().isoformat()}
-#         os.makedirs(os.path.dirname(filepath), exist_ok=True)
-#         with open(filepath, "w", encoding="utf-8") as f:
-#             json.dump(data, f, indent=2)
-
-#         archive_dir = os.path.join(os.path.dirname(filepath), "archives")
-#         os.makedirs(archive_dir, exist_ok=True)
-#         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-#         archive_path = os.path.join(archive_dir, f"cart_{timestamp}.json")
-#         with open(archive_path, "w", encoding="utf-8") as f:
-#             json.dump(data, f, indent=2)
-
-#     def load_from_file(self, filepath):
-#         with open(filepath, "r", encoding="utf-8") as f:
-#             data = json.load(f)
-#         self.products = data.get("products", [])
-# 

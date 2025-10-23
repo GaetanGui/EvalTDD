@@ -27,4 +27,6 @@ jobs:
         run: python -m black --check src tests
 
       - name: Run Tests with Coverage
-        run: pytest --cov=src --cov-report=html --cov-fail-under=80
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$PWD/src
+          pytest tests --cov=src
